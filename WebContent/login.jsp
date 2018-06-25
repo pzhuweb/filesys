@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
+<jsp:include page="title.jsp"></jsp:include>
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="js/md5.min.js"></script>
 <script type="text/javascript">
@@ -34,7 +35,21 @@
 		
 	}
 	function turn() {
-		$("#img").attr("src",'ImageServlet?time='+new Date()); 
+		var url = $("#img").attr("src");
+		url = url.replace(/time\=(\d+)/g,'time='+new Date().getTime());		
+		$('#img').attr('src',url);
+	}
+	function changeCode(n) {
+		switch (n) {
+			case 1:	$("#img").attr("src",'ImageServlet?type=og&time='+new Date().getTime()); 	
+				break;
+			case 2:	$("#img").attr("src",'ImageServlet?type=mul&time='+new Date().getTime()); 	
+				break;
+			case 3:	$("#img").attr("src",'ImageServlet?type=cn&time='+new Date().getTime()); 	
+				break;
+			default:$("#img").attr("src",'ImageServlet?type=og&time='+new Date().getTime()); 
+				break;
+		}
 	}
 </script>
 </head>
@@ -45,7 +60,11 @@
 	username:<input type="text" name="username" id="username" value="${username }"/><br>
 	password:<input type="password" name="password" id="password" value="${password }"/><br>
 	checkcode:<input type="text" name="usercode" id="usercode"/>
-	<img alt="error" id="img" src="ImageServlet" onclick="turn()" title="点击刷新"><br>
+	<img alt="error" id="img" src="ImageServlet?time=1" onclick="turn()" title="点击刷新">
+	<a href="javascript:changeCode(1)">普通验证码</a>
+	<a href="javascript:changeCode(2)">干扰验证码</a>
+	<a href="javascript:changeCode(3)">中文验证码</a>
+	<br>
 	<input type="checkbox" name="isSave" ${isSave=="yes"?"checked":""}/>自动登录<br>
 	
 	<input type="button" value="regist" onclick="regist()"/>

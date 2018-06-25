@@ -25,6 +25,4 @@
     <servlet-name>EditFileServlet</servlet-name>
     <url-pattern>/EditFileServlet</url-pattern>
   </servlet-mapping>
-  
-
 </web-app>

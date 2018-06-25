@@ -29,6 +29,8 @@
 		window.location.href="regist.jsp";
 	}
 	function login(){
+		var md5_pwd = md5($("#password").val());
+		$("#password").val(md5_pwd);
 		$("#form1").submit();
 	}
 </script>

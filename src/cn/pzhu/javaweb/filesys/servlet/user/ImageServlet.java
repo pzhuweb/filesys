@@ -38,7 +38,16 @@ public class ImageServlet extends HttpServlet {
 		//设置响应内容的类型是一张图
 		response.setContentType("image/jpeg");
 		//生成图片
-		BufferedImage bImage =ImageUtil.createImage(80, 25, 4);
+		BufferedImage bImage = null;
+		String type = request.getParameter("type");
+		if ("mul".equals(type)) {
+			bImage =ImageUtil.createMulImage(80, 25, 4);
+		} else if ("cn".equals(type)) {
+			bImage =ImageUtil.createCNImage(165, 45, 4);
+		}else{
+			bImage =ImageUtil.createImage(80, 25, 4);
+		}
+		
 		String right_code = ImageUtil.getScode();
 		//将正确的验证码保存到session中
 		request.getSession(true).setAttribute("right_code", right_code);
