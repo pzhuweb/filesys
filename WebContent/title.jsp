@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="login2.jsp">普通登录（无保护）</a>
-<a href="login3.jsp">普通登录（数据库加密）</a>
-<a href="login4.jsp">防窃取登录（数据库加密）</a>
-<a href="login.jsp">一次一密登录</a>
+<a href="login1.jsp">普通登录（无保护）</a>
+<a href="login2.jsp">普通登录（数据库加密）</a>
+<a href="login3.jsp">防窃取登录（数据库加密）</a>
+<a href="login4.jsp">一次一密登录</a>
 </body>
 </html>
