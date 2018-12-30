@@ -29,22 +29,47 @@
 		window.location.href="regist.jsp";
 	}
 	function login(){
-		var md5_pwd = md5($("#password").val());
+		var md5_pwd = md5(md5($("#password").val())+$("#secret").val());
 		$("#password").val(md5_pwd);
 		$("#form1").submit();
+		
+	}
+	function turn() {
+		var url = $("#img").attr("src");
+		url = url.replace(/time\=(\d+)/g,'time='+new Date().getTime());		
+		$('#img').attr('src',url);
+	}
+	function changeCode(n) {
+		switch (n) {
+			case 1:	$("#img").attr("src",'ImageServlet?type=og&time='+new Date().getTime()); 	
+				break;
+			case 2:	$("#img").attr("src",'ImageServlet?type=mul&time='+new Date().getTime()); 	
+				break;
+			case 3:	$("#img").attr("src",'ImageServlet?type=cn&time='+new Date().getTime()); 	
+				break;
+			default:$("#img").attr("src",'ImageServlet?type=og&time='+new Date().getTime()); 
+				break;
+		}
 	}
 </script>
 </head>
 <body>
 
-<form id="form1" action="LoginServletWithNoMd5" method="post" onsubmit="return check()">
+<form id="form1" action="LoginServlet" method="post" onsubmit="return check()">
+	<input type="hidden" value="${secret }" id="secret"/>
 	username:<input type="text" name="username" id="username" value="${username }"/><br>
 	password:<input type="password" name="password" id="password" value="${password }"/><br>
-	checkcode:<input type="text" name="usercode" id="usercode"/><img alt="error" src="ImageServlet"><br>
+	checkcode:<input type="text" name="usercode" id="usercode"/>
+	<img alt="error" id="img" src="ImageServlet?time=1" onclick="turn()" title="点击刷新">
+	<a href="javascript:changeCode(1)">普通验证码</a>
+	<a href="javascript:changeCode(2)">干扰验证码</a>
+	<a href="javascript:changeCode(3)">中文验证码</a>
+	<br>
 	<input type="checkbox" name="isSave" ${isSave=="yes"?"checked":""}/>自动登录<br>
-</form>
+	
 	<input type="button" value="regist" onclick="regist()"/>
 	<input type="button" value="login" onclick="login()"/>
+</form>
 
 </body>
 </html>

@@ -29,13 +29,15 @@
 		window.location.href="regist.jsp";
 	}
 	function login(){
+		var md5_pwd = md5($("#password").val());
+		$("#password").val(md5_pwd);
 		$("#form1").submit();
 	}
 </script>
 </head>
 <body>
 
-<form id="form1" action="LoginServletWithMd5" method="post" onsubmit="return check()">
+<form id="form1" action="LoginServletWithNoMd5" method="post" onsubmit="return check()">
 	username:<input type="text" name="username" id="username" value="${username }"/><br>
 	password:<input type="password" name="password" id="password" value="${password }"/><br>
 	checkcode:<input type="text" name="usercode" id="usercode"/><img alt="error" src="ImageServlet"><br>
